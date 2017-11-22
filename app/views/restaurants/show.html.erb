@@ -1,2 +1,29 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<div class="wrapper">
+  <div class="content">
+    <h1><%= @restaurant.name %></h1>
+    <div class="toolbar">
+      <a href='/restaurants/<%= @restaurant.id %>/edit'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+      <%= link_to "Edit", edit_restaurant_path(@restaurant) %> |
+      <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/restaurants/<%= @restaurant.id %>"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a> <%= link_to "Delete", restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+    </div>
+    <div class="content-txt"><%= @restaurant.address %></div>
+    <div class="content-txt"><%= @restaurant.phone_number %></div>
+    <div class="content-txt"><%= @restaurant.category %></div>
+  </div>
+  <div>
+    <h2>The latest review</h2>
+    <div>
+      <% @reviews.each do |review| %>
+        <% url = review.id %>
+        <li>
+          <h3><%= review.content %></h3>
+          <div><%= review.rating %></div>
+        </li>
+      <% end %>
+    </div>
+    <div>
+      <p style="text-align: center; margin-top: 20px"><%= link_to "Add a new review", new_restaurant_review_path(@restaurant), class:"btn btn-primary" %></p>
+    </div>
+    <div style="text-align: center; margin-top: 20px"><%= link_to "And back to the home, Simone", restaurants_path, class:"btn btn-primary" %></div>
+  </div>
+</div>

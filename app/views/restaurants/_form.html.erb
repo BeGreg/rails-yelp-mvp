@@ -1,0 +1,11 @@
+<%= simple_form_for(@restaurant) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, :class => 'form-input cell' %>
+  <%= f.label :address %>
+  <%= f.text_field :address, :placeholder => "Hi, nice site", :size => "80x10", :class=> 'form-input cell' %>
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number, :placeholder => "Hi, nice site", :size => "80x10", :class=> 'form-input cell' %>
+  <%= f.label :category %>
+  <%= f.text_field :category, :placeholder => "Hi, nice site", :size => "80x10", :class=> 'form-input cell' %>
+  <%= f.submit :class => 'btn btn-primary' %>
+<% end %>

@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  get 'reviews/show'
+  resources :restaurants do
+    resources :reviews, only: [ :new, :create ]
+  end
 
-  get 'reviews/new'
+  resources :reviews, only: [ :show, :edit ]
 
-  get 'restaurants/index'
+  namespace :admin do
+    resources :restaurants, only: [:index]
+  end
 
-  get 'restaurants/edit'
-
-  get 'restaurants/show'
-
-  get 'restaurants/new'
+  root 'restaurants#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
