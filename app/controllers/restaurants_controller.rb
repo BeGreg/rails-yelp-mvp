@@ -3,6 +3,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+    @reviews = Review.all
   end
 
   def new
@@ -33,6 +34,19 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant.destroy
     redirect_to restaurants.path
+  end
+
+  def average
+    puts "hello on débute"
+    count = self.reviews.size
+    sum = 0
+    puts count
+    self.reviews.each do |review|
+      sum += review.rating
+      puts sum
+    end
+    average = (sum / count)
+    puts average
   end
 
   private

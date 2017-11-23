@@ -3,16 +3,41 @@
     <ul>
       <% @restaurants.each do |restaurant| %>
         <% url = restaurant.id %>
+        <% average = 0 %>
         <li>
-          <h3><%= link_to restaurant.name, restaurant_path(restaurant)%></h3>
+          <h1 style= "display: inline"><%= link_to restaurant.name, restaurant_path(restaurant)%></h1>
           <div class="toolbar">
-            <a href='/restaurants/<%= url %>/edit'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-            <%= link_to "Edit", edit_restaurant_path(restaurant) %> |
-            <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/restaurants/<%= url %>"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a> <%= link_to "Delete", restaurant_path(restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+            <%= link_to edit_restaurant_path(restaurant) do %>
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              Edit
+            <% end %>
+            |
+            <%= link_to restaurant_path(restaurant), method: :delete, data: { confirm: "Are you sure?" } do %>
+              <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+              Delete
+            <% end %>
           </div>
-          <div class="content-txt"><%= restaurant.address %></div>
-          <div class="content-txt"><%= restaurant.phone_number %></div>
-          <div class="content-txt"><%= restaurant.category %></div>
+          <div class="content-txt">
+            <% count = restaurant.reviews.size %>
+            <% sum = 0 %>
+            <% restaurant.reviews.each do |review| %>
+                <% sum += review.rating  %>
+            <% end %>
+            <% average = (sum / count).to_f %>
+            Average : <%= average.round(2) %>
+          </div>
+          <div class="content-txt">
+            <i class="fa fa-map" aria-hidden="true"></i>
+            <%= restaurant.address %>
+          </div>
+          <div class="content-txt">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <%= restaurant.phone_number %>
+          </div>
+          <div class="content-txt">
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            <%= restaurant.category %>
+          </div>
         </li>
       <% end %>
     </ul>

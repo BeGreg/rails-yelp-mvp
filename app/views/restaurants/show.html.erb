@@ -1,23 +1,49 @@
 <div class="wrapper">
   <div class="content">
-    <h1><%= @restaurant.name %></h1>
-    <div class="toolbar">
-      <a href='/restaurants/<%= @restaurant.id %>/edit'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-      <%= link_to "Edit", edit_restaurant_path(@restaurant) %> |
-      <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/restaurants/<%= @restaurant.id %>"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a> <%= link_to "Delete", restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } %>
+    <div>
+      <h1 style= "display: inline"><%= @restaurant.name %></h1>
+      <div style= "display: inline", class="toolbar">
+        <%= link_to edit_restaurant_path(@restaurant) do %>
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          Edit
+        <% end %>
+         |
+        <%= link_to restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+          Delete
+        <% end %>
+      </div>
     </div>
-    <div class="content-txt"><%= @restaurant.address %></div>
-    <div class="content-txt"><%= @restaurant.phone_number %></div>
-    <div class="content-txt"><%= @restaurant.category %></div>
+    <div class="details">
+      <div class="content-txt">
+          <i class="fa fa-map" aria-hidden="true"></i>
+          <%= @restaurant.address %>
+      </div>
+      <div class="content-txt">
+          <i class="fa fa-phone" aria-hidden="true"></i>
+          <%= @restaurant.phone_number %>
+      </div>
+      <div class="content-txt">
+          <i class="fa fa-flag" aria-hidden="true"></i>
+          <%= @restaurant.category %>
+      </div>
+    </div>
   </div>
   <div>
-    <h2>The latest review</h2>
+    <h2>The latest reviews:</h2>
     <div>
       <% @reviews.each do |review| %>
         <% url = review.id %>
-        <li>
-          <h3><%= review.content %></h3>
-          <div><%= review.rating %></div>
+        <li class="review" >
+          <div>
+            <% review.rating.times do %>
+              <i class="fa fa-star" aria-hidden="true" style="color: #FFBD00"></i>
+            <% end %>
+            <% (5 - review.rating).times do %>
+              <i class="fa fa-star" aria-hidden="true" style="color: #DDDDDD"></i>
+            <% end %>
+          </div>
+          <h4><%= review.content %></h4>
         </li>
       <% end %>
     </div>
